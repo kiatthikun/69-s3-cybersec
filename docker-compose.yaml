@@ -22,5 +22,20 @@ services:
     depends_on:
       - db
 
+  app:
+    image: prawee/strapi
+    container_name: 69-s3-app
+    ports:
+      - "8080:1337"
+    environment:
+      DATABASE_CLIENT: ${APP_DATABASE_CLIENT}
+      DATABASE_NAME: ${APP_DATABASE_NAME}
+      DATABASE_HOST: ${APP_DATABASE_HOST}
+      DATABASE_PORT: ${APP_DATABASE_PORT}
+      DATABASE_USERNAME: ${APP_DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${APP_DATABASE_PASSWORD}
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
