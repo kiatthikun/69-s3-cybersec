@@ -5,9 +5,9 @@ services:
     ports:
       - "54327:5432"
     environment:
-      POSTGRES_USER: kiatthikun
-      POSTGRES_PASSWORD: kiatthikun
-      POSTGRES_DB: kiatthikun
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -17,8 +17,8 @@ services:
     ports:
       - "8083:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: kiatthikun-k@rmutp.ac.th
-      PGADMIN_DEFAULT_PASSWORD: kiatthikun
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
     depends_on:
       - db
 
