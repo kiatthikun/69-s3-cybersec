@@ -17,7 +17,7 @@ RUN apk add --no-cache vips
 ENV NODE_ENV=production
 WORKDIR /opt/app
 COPY --from=build --chown=node:node /opt/app ./
-
+RUN mkdir -p /opt/app/database/migrations && chown -R node:node /opt/app/database
 USER node
 EXPOSE 1337
 CMD ["npm", "run", "start"]
