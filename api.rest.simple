@@ -1,71 +1,100 @@
 # REST
+# ทุกค่า input อ่านจากไฟล์ .env
 
-## Login
+## 1. Admin Section
 
-POST http://localhost:9093/admin/login
+### 1.1 Login (Admin)
+
+POST http://localhost:8080/admin/login
 Content-Type: application/json
 
 {
-    "email": "",
-    "password": "",
+    "email": "{{$dotenv ADMIN_EMAIL}}",
+    "password": "{{$dotenv STRAPI_ADMIN_PASSWORD}}",
     "rememberMe": true
 }
-### Register (Admin)
 
-POST http://localhost:9093/admin/register-admin
+### 1.2 Register (Admin)
+
+POST http://localhost:8080/admin/register-admin
 Content-Type: application/json
 
 {
-    "firstname": "",
-    "lastname": "",
-    "email": "",
-    "password": ""
+    "firstname": "{{$dotenv FIRSTNAME}}",
+    "lastname": "{{$dotenv LASTNAME}}",
+    "email": "{{$dotenv ADMIN_EMAIL}}",
+    "password": "{{$dotenv STRAPI_ADMIN_PASSWORD}}"
 }
 
-### Forgot Password (Admin)
+### 1.3 Forgot Password (Admin)
 
-POST http://localhost:9093/admin/forgot-password
+POST http://localhost:8080/admin/forgot-password
 Content-Type: application/json
 
 {
-    "email": ""
+    "email": "{{$dotenv ADMIN_EMAIL}}"
 }
 
-### Profile (Admin)
+### 1.4 Reset Password (Admin)
 
-GET http://localhost:9093/admin/users/me
-Authorization: Bearer ADMIN_TOKEN
-### Login (User)
-
-POST http://localhost:9093/api/auth/local
+POST http://localhost:8080/admin/reset-password
 Content-Type: application/json
 
 {
-    "identifier": "",
-    "password": ""
+    "resetPasswordToken": "{{$dotenv ADMIN_RESET_CODE}}",
+    "password": "{{$dotenv STRAPI_ADMIN_PASSWORD}}"
 }
 
-### Signup
+### 1.5 Profile (Admin)
 
-POST http://localhost:9093/api/auth/local/register
+GET http://localhost:8080/admin/users/me
+Authorization: Bearer {{$dotenv ADMIN_TOKEN}}
+
+
+## 2. User Section
+
+### 2.1 Login (User)
+
+POST http://localhost:8080/api/auth/local
 Content-Type: application/json
 
 {
-    "username": "",
-    "email": "",
-    "password": ""
+    "identifier": "{{$dotenv USER_IDENTIFIER}}",
+    "password": "{{$dotenv USER_PASSWORD}}"
 }
 
-### Forgot Password
+### 2.2 Signup (User)
 
-POST http://localhost:9093/api/auth/forgot-password
+POST http://localhost:8080/api/auth/local/register
 Content-Type: application/json
 
 {
-    "email": ""
+    "username": "{{$dotenv USER_USERNAME}}",
+    "email": "{{$dotenv USER_EMAIL}}",
+    "password": "{{$dotenv USER_PASSWORD}}"
 }
 
-### Profile
+### 2.3 Forgot Password (User)
 
-GET http://localhost:9093/api/users/me
-Authorization: Bearer YOUR_JWT_TOKEN
+POST http://localhost:8080/api/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "{{$dotenv USER_EMAIL}}"
+}
+
+### 2.4 Reset Password (User)
+
+POST http://localhost:8080/api/auth/reset-password
+Content-Type: application/json
+
+{
+    "code": "{{$dotenv USER_RESET_CODE}}",
+    "password": "{{$dotenv USER_PASSWORD}}",
+    "passwordConfirmation": "{{$dotenv USER_PASSWORD}}"
+}
+
+### 2.5 Profile (User)
+
+GET http://localhost:8080/api/users/me
+Authorization: Bearer {{$dotenv USER_TOKEN}}
